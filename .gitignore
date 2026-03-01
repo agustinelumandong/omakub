@@ -1,2 +1,4 @@
 omakub-popos-patches
 *.md
+!FORK_SUCCESS.md
+!TESTED-on-POP_OS-MACHINE.md
