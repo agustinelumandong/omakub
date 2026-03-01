@@ -1,6 +1,6 @@
 # GNOME guard (added by Pop!_OS patch)
 is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
-is_gnome || { echo "  Skipping (GNOME only): set-framework-text-scaling.sh"; exit 0; }
+is_gnome || { echo "  Skipping (GNOME only): set-framework-text-scaling.sh"; return 0; }
 
 #!/bin/bash
 

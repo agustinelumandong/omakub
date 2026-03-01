@@ -1,6 +1,6 @@
 # GNOME guard (added by Pop!_OS patch)
 is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
-is_gnome || { echo "  Skipping (GNOME only): app-gnome-sushi.sh"; exit 0; }
+is_gnome || { echo "  Skipping (GNOME only): app-gnome-sushi.sh"; return 0; }
 
 #!/bin/bash
 
