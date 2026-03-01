@@ -26,8 +26,14 @@ if [ -f "$HOME/.ssh/id_ed25519" ] || [ -f "$HOME/.ssh/id_rsa" ]; then
   fi
 fi
 
-# Prompt for email
-read -p "Enter your email address (for SSH key comment): " email
+# Use collected email or prompt for it
+if [ -n "$OMAKUB_USER_EMAIL" ]; then
+  email="$OMAKUB_USER_EMAIL"
+  echo "Using previously collected email: $email"
+  echo ""
+else
+  read -p "Enter your email address (for SSH key comment): " email
+fi
 
 if [ -z "$email" ]; then
   echo "Email is required. Exiting."

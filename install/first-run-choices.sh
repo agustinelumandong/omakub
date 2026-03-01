@@ -14,3 +14,7 @@ export OMAKUB_FIRST_RUN_LANGUAGES=$(gum choose "${AVAILABLE_LANGUAGES[@]}" --no-
 AVAILABLE_DBS=("MySQL" "Redis" "PostgreSQL")
 SELECTED_DBS="MySQL,Redis,PostgreSQL"
 export OMAKUB_FIRST_RUN_DBS=$(gum choose "${AVAILABLE_DBS[@]}" --no-limit --selected "$SELECTED_DBS" --height 5 --header "Select databases (runs in Docker)")
+
+# Collect user information for Git, GPG, and SSH configuration
+export OMAKUB_USER_NAME=$(gum input --placeholder "Your Full Name" --header "Enter your full name for Git commits")
+export OMAKUB_USER_EMAIL=$(gum input --placeholder "your.email@example.com" --header "Enter your email address")

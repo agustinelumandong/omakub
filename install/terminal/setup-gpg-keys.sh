@@ -43,9 +43,18 @@ fi
 echo "Generating new GPG key..."
 echo ""
 
-# Get user information
-GPG_NAME=$(gum input --placeholder "Full Name (e.g., John Doe)" --header "Enter your full name")
-GPG_EMAIL=$(gum input --placeholder "Email (e.g., john@example.com)" --header "Enter your email address")
+# Get user information (use collected values or prompt)
+if [ -n "$OMAKUB_USER_NAME" ] && [ -n "$OMAKUB_USER_EMAIL" ]; then
+  GPG_NAME="$OMAKUB_USER_NAME"
+  GPG_EMAIL="$OMAKUB_USER_EMAIL"
+  echo "Using previously collected information:"
+  echo "  Name: $GPG_NAME"
+  echo "  Email: $GPG_EMAIL"
+  echo ""
+else
+  GPG_NAME=$(gum input --placeholder "Full Name (e.g., John Doe)" --header "Enter your full name")
+  GPG_EMAIL=$(gum input --placeholder "Email (e.g., john@example.com)" --header "Enter your email address")
+fi
 
 if [ -z "$GPG_NAME" ] || [ -z "$GPG_EMAIL" ]; then
   echo "✗ Name and email are required. Exiting."
@@ -135,6 +144,13 @@ echo ""
 echo "3. Add to GitLab:"
 echo "   Preferences → GPG Keys → Add new key"
 echo ""
+
+
+# Ensure ~/.ssh directory exists before exporting public key
+if [ ! -d "$HOME/.ssh" ]; then
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+fi
 
 # Export public key
 gpg --armor --export "$KEY_ID" > ~/.ssh/gpg-public-key.asc
