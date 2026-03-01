@@ -11,7 +11,7 @@ ascii_art='________                  __        ___.
 '
 
 echo -e "$ascii_art"
-echo "=> Omakub is for fresh Ubuntu 24.04+ installations only!"
+echo "=> Omakub is for fresh Ubuntu/Pop!_OS 24.04+ installations only!"
 echo -e "\nBegin installation (or abort with ctrl+c)..."
 
 sudo apt-get update >/dev/null
@@ -20,9 +20,14 @@ sudo apt-get install -y git >/dev/null
 echo "Cloning Omakub..."
 rm -rf ~/.local/share/omakub
 git clone https://github.com/agustinelumandong/omakub.git ~/.local/share/omakub >/dev/null
-if [[ $OMAKUB_REF != "master" ]]; then
+# Use popos-cosmic branch by default for this fork
+if [[ -z $OMAKUB_REF ]]; then
 	cd ~/.local/share/omakub
-	git fetch origin "${OMAKUB_REF:-stable}" && git checkout "${OMAKUB_REF:-stable}"
+	git checkout popos-cosmic >/dev/null 2>&1
+	cd -
+elif [[ $OMAKUB_REF != "master" ]]; then
+	cd ~/.local/share/omakub
+	git fetch origin "${OMAKUB_REF}" && git checkout "${OMAKUB_REF}"
 	cd -
 fi
 
