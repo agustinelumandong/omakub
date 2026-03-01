@@ -35,7 +35,7 @@ if gpg --list-secret-keys --keyid-format=long | grep -q "sec"; then
       echo "3. Add to GitLab: Preferences → GPG Keys → Add new key"
     fi
     
-    exit 0
+    return 0
   fi
 fi
 
