@@ -8,6 +8,7 @@ ________                  __        ___.
 \_______  /__|_|  (____  /__|_ \____/|___  /
         \/      \/     \/     \/         \/
 
+           for Pop!_OS + COSMIC 🚀
 '
 
 # Define the color gradient (shades of cyan and blue)
