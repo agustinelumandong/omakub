@@ -7,6 +7,16 @@ echo "SSH Key Generation Setup"
 echo "========================"
 echo ""
 
+# Ask if user wants to set up SSH keys
+setup_choice=$(gum choose "Set up SSH keys now" "Skip SSH setup" --header "Do you want to set up SSH keys?")
+
+if [ "$setup_choice" = "Skip SSH setup" ]; then
+  echo "Skipping SSH key setup. You can run this script later if needed."
+  exit 0
+fi
+echo "SSH keys are used for GitHub/GitLab authentication and remote server access."
+echo ""
+
 # Check if SSH directory exists
 if [ ! -d "$HOME/.ssh" ]; then
   mkdir -p "$HOME/.ssh"
@@ -19,9 +29,9 @@ if [ -f "$HOME/.ssh/id_ed25519" ] || [ -f "$HOME/.ssh/id_rsa" ]; then
   ls -la "$HOME/.ssh" | grep "^-" | awk '{print $9}' | grep -E "(id_|\.pub$)"
   echo ""
   
-  read -p "Do you want to generate a new SSH key? (y/n): " generate_new
-  if [ "$generate_new" != "y" ]; then
-    echo "Skipping SSH key generation."
+  generate_choice=$(gum choose "Use existing keys" "Generate new SSH key" --header "Existing SSH keys found. What would you like to do?")
+  if [ "$generate_choice" = "Use existing keys" ]; then
+    echo "Using existing SSH keys."
     exit 0
   fi
 fi
@@ -32,7 +42,7 @@ if [ -n "$OMAKUB_USER_EMAIL" ]; then
   echo "Using previously collected email: $email"
   echo ""
 else
-  read -p "Enter your email address (for SSH key comment): " email
+  email=$(gum input --placeholder "Enter your email address for SSH key comment")
 fi
 
 if [ -z "$email" ]; then
@@ -42,15 +52,12 @@ fi
 
 # Prompt for key type
 echo ""
-echo "Select SSH key type:"
-echo "1) Ed25519 (recommended, modern, secure)"
-echo "2) RSA 4096 (compatible with older systems)"
-read -p "Choice [1]: " key_type
+key_type_choice=$(gum choose "Ed25519 (recommended, modern, secure)" "RSA 4096 (compatible with older systems)" --header "Select SSH key type")
 
-key_type=${key_type:-1}
+# Determine key type from choice
 
 # Generate SSH key based on selection
-if [ "$key_type" == "2" ]; then
+if [[ "$key_type_choice" == *"RSA"* ]]; then
   echo "Generating RSA 4096-bit SSH key..."
   ssh-keygen -t rsa -b 4096 -C "$email" -f "$HOME/.ssh/id_rsa"
   key_file="$HOME/.ssh/id_rsa.pub"
