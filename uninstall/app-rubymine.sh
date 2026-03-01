@@ -1,3 +1,6 @@
 #!/bin/bash
+# JetBrains Toolbox uninstall (app-rubymine.sh installs Toolbox, not RubyMine SNAP)
 
-sudo snap remove rubymine
+rm -rf ~/.local/share/JetBrains/Toolbox
+rm -f ~/.local/share/applications/jetbrains-toolbox.desktop
+rm -f /usr/local/bin/jetbrains-toolbox
