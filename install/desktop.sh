@@ -1,3 +1,7 @@
+# DE detection helpers (added by Pop!_OS patch)
+is_gnome()  { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
+is_cosmic() { [[ "${OMAKUB_DE:-}" == *"COSMIC"* ]]; }
+
 #!/bin/bash
 
 # Run desktop installers
