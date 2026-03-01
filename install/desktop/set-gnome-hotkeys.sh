@@ -1,3 +1,7 @@
+# GNOME guard (added by Pop!_OS patch)
+is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
+is_gnome || { echo "  Skipping (GNOME only): set-gnome-hotkeys.sh"; return 0; }
+
 #!/bin/bash
 
 # Alt+F4 is very cumbersome
