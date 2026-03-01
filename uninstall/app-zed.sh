@@ -1,6 +1,5 @@
 #!/bin/bash
 
-rm -rf ~/.local/zed.app
-rm -rf ~/.local/bin/zed
-rm -rf ~/.local/share/applications/dev.zed.Zed.desktop
-rm -rf ~/.config/zed
+sudo apt remove --purge -y zed
+sudo rm -f /etc/apt/sources.list.d/zed.list
+sudo rm -f /usr/share/keyrings/zed.gpg
