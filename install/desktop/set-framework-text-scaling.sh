@@ -1,3 +1,7 @@
+# GNOME guard (added by Pop!_OS patch)
+is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
+is_gnome || { echo "  Skipping (GNOME only): set-framework-text-scaling.sh"; exit 0; }
+
 #!/bin/bash
 
 COMPUTER_MAKER=$(sudo dmidecode -t system | grep 'Manufacturer:' | awk '{print $2}')

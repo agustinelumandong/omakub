@@ -1,3 +1,7 @@
+# GNOME guard (added by Pop!_OS patch)
+is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
+is_gnome || { echo "  Skipping (GNOME only): set-app-grid.sh"; exit 0; }
+
 #!/bin/bash
 
 # Remove Btop entry for one that runs in alacritty

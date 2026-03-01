@@ -1,3 +1,7 @@
+# GNOME guard (added by Pop!_OS patch)
+is_gnome() { [[ "${OMAKUB_DE:-}" == *"GNOME"* ]]; }
+is_gnome || { echo "  Skipping (GNOME only): set-gnome-extensions.sh"; exit 0; }
+
 #!/bin/bash
 
 sudo apt install -y gnome-shell-extension-manager gir1.2-gtop-2.0 gir1.2-clutter-1.0
