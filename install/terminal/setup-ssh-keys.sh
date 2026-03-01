@@ -12,7 +12,7 @@ setup_choice=$(gum choose "Set up SSH keys now" "Skip SSH setup" --header "Do yo
 
 if [ "$setup_choice" = "Skip SSH setup" ]; then
   echo "Skipping SSH key setup. You can run this script later if needed."
-  exit 0
+  return 0
 fi
 echo "SSH keys are used for GitHub/GitLab authentication and remote server access."
 echo ""
@@ -32,7 +32,7 @@ if [ -f "$HOME/.ssh/id_ed25519" ] || [ -f "$HOME/.ssh/id_rsa" ]; then
   generate_choice=$(gum choose "Use existing keys" "Generate new SSH key" --header "Existing SSH keys found. What would you like to do?")
   if [ "$generate_choice" = "Use existing keys" ]; then
     echo "Using existing SSH keys."
-    exit 0
+    return 0
   fi
 fi
 
